@@ -9,7 +9,7 @@ app.use(cors())
 const server = http.createServer(app)
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3000',
+        origin: '*',
         methods: ['GET', 'POST']
     }
 })
@@ -22,9 +22,8 @@ io.on('connection', (socket) => {
     })
 
     socket.on('message', (data) => {
-           //socket.broadcast.emit('messageReturn',data) //paylasan kisi haric herkese gonder diyor
+        //socket.broadcast.emit('messageReturn',data) //paylasan kisi haric herkese gonder diyor
         socket.to(data.room).emit('messageReturn', data) // sadece joinlenmis kisileri gonderiyor artik
-
     })
 
 })
